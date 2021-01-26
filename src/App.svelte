@@ -105,7 +105,6 @@
 	isGameEnd.subscribe(value => {
 		currentIsGameEndValue = value;
 		if (value) {
-			console.log('pickedColor',)
 			window.document.body.style.backgroundColor = currentPickedColor;
 		} else {
 			window.document.body.style.backgroundColor = "#232323";

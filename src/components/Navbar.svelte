@@ -39,11 +39,13 @@
 
 <script>
 	import BasicButton from './BasicButton.svelte';
-	import { mode, colorSets, pickedColor } from '../stores/gameStores.js';
+	import { isGameEnd, mode, colorSets, pickedColor } from '../stores/gameStores.js';
 	let levelArr = ['Easy', 'Hard', 'Nightmare'];
 	let currentMode;
 	import { generateRandomColors, pickUpColor } from '../utils/colorUtils';
-	const unsubscribe = mode.subscribe(value => {
+
+	// reset color once change mode;
+	mode.subscribe(value => {
 		currentMode = value;
 		let newColorSets;
 		let newPickedColor;
@@ -55,6 +57,7 @@
 		newPickedColor = pickUpColor(newColorSets)
 		colorSets.update((currentColorSets => newColorSets))
 		pickedColor.update((currentPickedColor => newPickedColor))
+		isGameEnd.update((currentIsGameEndValue => false))
 	});
 
 	function changeMode(newMode) {

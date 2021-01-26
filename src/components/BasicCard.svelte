@@ -11,13 +11,34 @@
   }
 </style>
 
-<div class="base-card" style="background-color: {color}" on:click={onClickAction}>{color}</div>
+<div 
+  class="base-card"
+  style="background-color: {color}; opacity: {shouldHideCard ? '0' : '1'}" 
+  on:click={onClickAction}
+/>
 
 <script>
   export let color = '';
   export let onClick = () => {};
+  import { mode, isGameEnd } from '../stores/gameStores.js';
+  let shouldHideCard = false;
+  let currentIsGameEndValue;
+  let currentMode;
 
+  isGameEnd.subscribe(value => {
+    currentIsGameEndValue = value;
+    shouldHideCard = false;
+  });
+
+  mode.subscribe(value => {
+    currentMode = value;
+    shouldHideCard = false;
+  });
+  
   function onClickAction() {
-    onClick(color);
+    if (currentIsGameEndValue) {
+      return;
+    }
+    shouldHideCard = !onClick(color);
   }
 </script>

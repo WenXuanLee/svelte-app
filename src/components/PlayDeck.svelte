@@ -35,8 +35,8 @@
   });
 
   function checkIsPickedColor (targetColor) {
-    if (targetColor === cureentPickedColor) {
-      isGameEnd.update((currentValue => true))
-    }
+    console.log(targetColor === cureentPickedColor);
+    isGameEnd.update((currentValue => targetColor === cureentPickedColor))
+    return targetColor === cureentPickedColor;
   }
 </script>
